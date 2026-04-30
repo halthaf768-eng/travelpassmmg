@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnif - Your Dream Destination</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="youtube-player" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
+
+    <div class="background-container"></div>
+
+    <!-- Jet Flyby SVG -->
+    <svg id="jetSilhouette" class="jet" viewBox="0 0 512 512" fill="rgba(255,255,255,0.7)">
+        <path d="M497.6,211.2l-112-40c-9.6-3.2-19.2-6.4-28.8-6.4l-112-24c-12.8-3.2-22.4,3.2-25.6,12.8l-12.8,44.8L28.8,176 C12.8,172.8,0,185.6,0,201.6v16c0,12.8,9.6,22.4,22.4,25.6l176,32v60.8l-70.4,48c-9.6,6.4-12.8,19.2-9.6,28.8v16 c0,9.6,9.6,16,19.2,16l96-32l96,32c9.6,0,19.2-6.4,19.2-16v-16c0-9.6-3.2-22.4-9.6-28.8l-70.4-48v-60.8l115.2-19.2 c9.6,0,19.2,0,28.8,3.2l112,40c12.8,3.2,25.6-3.2,25.6-16v-16C512,224,507.2,214.4,497.6,211.2z"/>
+    </svg>
+    
+    <main class="app-container">
+        <div class="boarding-pass-container">
+            <div class="boarding-pass" id="boardingPass">
+                
+                <!-- Front Side -->
+                <div class="pass-front">
+                    <div class="side-tab">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="white">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                        </svg>
+                    </div>
+
+                    <div class="pass-header">
+                        <div class="brand-group">
+                            <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 6L4 1.5L0 4L9.6 9.6L12 12L14.4 9.6L24 4L20 1.5L12 6Z" fill="#b89047"/>
+                            </svg>
+                            <span class="logo"><strong>MAGNIF</strong> <span style="font-weight: 300; color: #a1a1a1;">FIRST</span></span>
+                        </div>
+                        <div class="flight-type">BOARDING PASS</div>
+                    </div>
+                    
+                    <div class="pass-body">
+                        <div class="info-group name-group">
+                            <span class="label">NAME OF PASSENGER</span>
+                            <span class="value name-val" id="dynName">JIJISHA</span>
+                        </div>
+                        
+                        <div class="divider"></div>
+
+                        <div class="info-row">
+                            <div class="info-group">
+                                <span class="label">SEAT</span>
+                                <span class="value gold-val">12A</span>
+                            </div>
+                            <div class="info-group center-group">
+                                <span class="label">GATE</span>
+                                <span class="value gold-val">M4</span>
+                            </div>
+                            <div class="info-group right-group">
+                                <span class="label">CLASS</span>
+                                <span class="value gold-val">FIRST</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="destination-box" id="destinationGroup">
+                            <span class="label">DESTINATION</span>
+                            <div class="dest-val-container">
+                                <span class="value dest-val" id="destinationValue">?</span>
+                                <span class="value dest-val countdown" id="countdown"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pass-footer" id="passFooter">
+                        <span class="footer-text">YOUR JOURNEY. YOUR DESTINATION.</span>
+                        <button class="reveal-btn" id="revealBtn">REVEAL DESTINATION <span style="font-family: monospace;">&gt;</span></button>
+                    </div>
+                </div>
+
+                <!-- Back Side (Reveals Image) -->
+                <div class="pass-back">
+                    <img src="jijisha.jpg" alt="Dream Destination" class="destination-image" id="dynImage">
+                </div>
+            </div>
+            
+            <div class="reflection"></div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <button id="viewInvitationBtn" class="view-invitation-btn" style="display:none;">VIEW INVITATION</button>
+        </div>
+    </main>
+
+    <!-- Dream Sequence -->
+    <div class="dream-sequence" id="dreamSequence">
+        <div class="golden-flash"></div>
+        <div class="dream-scene scene-1" id="scene1">
+            <img src="scene_a.png" alt="Cafe">
+            <div class="dream-text">Imagine us here...</div>
+        </div>
+        <div class="dream-scene scene-2" id="scene2">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1920&auto=format&fit=crop" alt="London Party">
+            <div class="dream-text">Moments waiting for us...</div>
+        </div>
+        <div class="dream-scene scene-3" id="scene3">
+            <img src="https://images.unsplash.com/photo-1529369623266-f5264b696110?q=80&w=1920&auto=format&fit=crop" alt="London Street" id="dynDreamImage">
+            <div class="dream-text">Just for you.</div>
+        </div>
+    </div>
+
+    <!-- Third Page: Invitation Container -->
+    <div class="invitation-container" id="invitationContainer">
+        <div class="invitation-bg"></div>
+        
+        <!-- The Card that Falls and Expands -->
+        <div class="invitation-card" id="invitationCard">
+            <div class="icon-top-right">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="#e5c97d">
+                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                </svg>
+            </div>
+            <div class="inv-subtitle">YOU ARE INVITED</div>
+            <h2 class="inv-title">ADVENTURE<br>AWAITS</h2>
+            <p class="inv-desc">Join us on an unforgettable journey to create memories that last a lifetime.</p>
+            
+            <div class="inv-details-grid">
+                <div class="inv-detail-box">
+                    <div class="inv-icon">📅</div>
+                    <div class="inv-text">
+                        <span class="inv-label">DATE</span>
+                        <span class="inv-val" id="dynDate">25 June 2025</span>
+                    </div>
+                </div>
+                <div class="inv-detail-box">
+                    <div class="inv-icon">📍</div>
+                    <div class="inv-text">
+                        <span class="inv-label">DESTINATION</span>
+                        <span class="inv-val" id="dynDest">London, UK</span>
+                    </div>
+                </div>
+                <div class="inv-detail-box">
+                    <div class="inv-icon">⏱️</div>
+                    <div class="inv-text">
+                        <span class="inv-label">DURATION</span>
+                        <span class="inv-val" id="dynDuration">5 Days / 4 Nights</span>
+                    </div>
+                </div>
+                <div class="inv-detail-box">
+                    <div class="inv-icon">👥</div>
+                    <div class="inv-text">
+                        <span class="inv-label">TRAVELERS</span>
+                        <span class="inv-val" id="dynTravelers">2 People</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New Message Format -->
+            <div class="inv-message-box" style="display: block; text-align: center; padding: 1.5rem;">
+                <span class="inv-message-text" id="dynMessage" style="font-family: 'Georgia', serif; line-height: 1.6; font-size: 0.95rem; opacity: 0.95;">
+                    Dear Jijisha,<br><br>
+                    This isn’t just a trip…<br>
+                    it’s a story waiting to happen.<br><br>
+                    Let’s make it unforgettable ✨
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

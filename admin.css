@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #1a1511;
+    color: #e4dfd3;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.admin-container {
+    background: #2a221b;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h2 {
+    color: #d4af37;
+    letter-spacing: 2px;
+}
+
+.header p {
+    color: #8b8b8b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    background: #1a1511;
+    border: 1px solid #3d3126;
+    border-radius: 8px;
+    padding: 0.8rem;
+    color: white;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #d4af37;
+}
+
+.generate-btn {
+    width: 100%;
+    background: linear-gradient(to right, #98762e, #c6a34d);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: opacity 0.3s;
+}
+
+.generate-btn:hover {
+    opacity: 0.9;
+}
+
+.result-box {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px dashed #3d3126;
+}
+
+.result-box.hidden {
+    display: none;
+}
+
+.result-box textarea {
+    width: 100%;
+    background: #15110e;
+    border: 1px solid #3d3126;
+    border-radius: 8px;
+    padding: 0.8rem;
+    color: #d4af37;
+    font-family: monospace;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    resize: vertical;
+}
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.copy-btn:hover {
+    background: #d4af37;
+    color: #1a1511;
+}
