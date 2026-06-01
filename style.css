@@ -22,11 +22,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .background-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -42,6 +43,7 @@ body {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 .app-container {
@@ -300,6 +302,15 @@ body {
     border-radius: 50%;
     z-index: -1;
     opacity: 0.6;
+    pointer-events: none;
+}
+
+.action-container {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 20;
 }
 
 .view-invitation-btn {
@@ -368,6 +379,13 @@ body {
 .dream-scene {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    perspective: 1200px;
+    background:
+        radial-gradient(circle at center, rgba(255, 245, 214, 0.12), transparent 34%),
+        rgba(10, 8, 7, 0.82);
     opacity: 0;
     transition: opacity 1s ease-in-out; /* soft crossfade */
 }
@@ -376,19 +394,33 @@ body {
 }
 
 .dream-scene img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.05);
+    width: min(92vw, 1180px);
+    height: min(82vh, 760px);
+    object-fit: contain;
+    object-position: center;
+    border-radius: 14px;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+    transform: scale(0.98) rotateX(0deg) rotateY(0deg);
     transform-origin: center;
+    transform-style: preserve-3d;
 }
 .dream-scene.ken-burns img {
     animation: kenBurns 4s linear forwards;
 }
 
+.dream-scene.spin-burst img {
+    animation: spinBurst 0.8s ease-out forwards, kenBurns 4s linear 0.8s forwards;
+}
+
 @keyframes kenBurns {
-    0% { transform: scale(1.05); filter: brightness(0.9) sepia(0.3) saturate(1.2); }
-    100% { transform: scale(1.2); filter: brightness(0.9) sepia(0.3) saturate(1.2); }
+    0% { transform: scale(0.98) rotateX(0deg) rotateY(0deg); filter: brightness(0.92) sepia(0.22) saturate(1.14); }
+    100% { transform: scale(1.04) rotateX(0deg) rotateY(0deg); filter: brightness(0.92) sepia(0.22) saturate(1.14); }
+}
+
+@keyframes spinBurst {
+    0% { transform: scale(0.62) rotateX(10deg) rotateY(-62deg) rotateZ(-10deg); filter: brightness(1.12) sepia(0.16) saturate(1.28); }
+    48% { transform: scale(1.02) rotateX(-4deg) rotateY(22deg) rotateZ(5deg); filter: brightness(1) sepia(0.2) saturate(1.18); }
+    100% { transform: scale(0.98) rotateX(0deg) rotateY(0deg) rotateZ(0deg); filter: brightness(0.92) sepia(0.22) saturate(1.14); }
 }
 
 .dream-text {
@@ -408,6 +440,29 @@ body {
 }
 .dream-scene.visible .dream-text {
     opacity: 1;
+}
+
+@media (min-width: 900px) {
+    .dream-scene img {
+        width: min(88vw, 1180px);
+        height: min(80vh, 760px);
+    }
+}
+
+@media (max-width: 720px) {
+    .dream-scene img {
+        width: calc(100vw - 28px);
+        height: min(72vh, 620px);
+        border-radius: 10px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .dream-text {
+        bottom: 14%;
+        padding: 0 1.2rem;
+        font-size: 1.35rem;
+    }
 }
 
 /* Golden glow overlay to transition out of dream */

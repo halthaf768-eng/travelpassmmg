@@ -5,10 +5,11 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '127.0.0.1';
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '120mb' }));
 app.use(express.static(path.join(__dirname)));
 
 // Database setup
@@ -24,8 +25,20 @@ db.exec(`CREATE TABLE IF NOT EXISTS boarding_passes (
     duration TEXT,
     travelers TEXT,
     msg TEXT,
-    img TEXT
+    img TEXT,
+    music TEXT,
+    scene1 TEXT,
+    scene2 TEXT,
+    scene3 TEXT,
+    scene4 TEXT
 )`);
+
+const columns = db.prepare('PRAGMA table_info(boarding_passes)').all().map((column) => column.name);
+['music', 'scene1', 'scene2', 'scene3', 'scene4'].forEach((column) => {
+    if (!columns.includes(column)) {
+        db.exec(`ALTER TABLE boarding_passes ADD COLUMN ${column} TEXT`);
+    }
+});
 
 // Root route
 app.get('/', (req, res) => {
@@ -34,14 +47,14 @@ app.get('/', (req, res) => {
 
 // Create a new boarding pass
 app.post('/api/passes', (req, res) => {
-    const { name, dest, date, duration, travelers, msg, img } = req.body;
+    const { name, dest, date, duration, travelers, msg, img, music, scene1, scene2, scene3, scene4 } = req.body;
     
-    const sql = `INSERT INTO boarding_passes (name, dest, date, duration, travelers, msg, img)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO boarding_passes (name, dest, date, duration, travelers, msg, img, music, scene1, scene2, scene3, scene4)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
                  
     try {
         const stmt = db.prepare(sql);
-        const info = stmt.run(name, dest, date, duration, travelers, msg, img);
+        const info = stmt.run(name, dest, date, duration, travelers, msg, img, music, scene1, scene2, scene3, scene4);
         res.json({ id: info.lastInsertRowid });
     } catch (err) {
         console.error(err.message);
@@ -69,6 +82,6 @@ app.get('/api/passes/:id', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`Server is running on http://${HOST}:${PORT}`);
 });

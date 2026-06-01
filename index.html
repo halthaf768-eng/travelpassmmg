@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="youtube-player" style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
+    <audio id="customMusic" preload="auto" loop></audio>
 
     <div class="background-container"></div>
 
@@ -97,16 +97,20 @@
     <div class="dream-sequence" id="dreamSequence">
         <div class="golden-flash"></div>
         <div class="dream-scene scene-1" id="scene1">
-            <img src="scene_a.png" alt="Cafe">
+            <img src="scene_a.png" alt="Dream scene 1" id="dreamImage1">
             <div class="dream-text">Imagine us here...</div>
         </div>
         <div class="dream-scene scene-2" id="scene2">
-            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1920&auto=format&fit=crop" alt="London Party">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=1920&auto=format&fit=crop" alt="Dream scene 2" id="dreamImage2">
             <div class="dream-text">Moments waiting for us...</div>
         </div>
         <div class="dream-scene scene-3" id="scene3">
-            <img src="https://images.unsplash.com/photo-1529369623266-f5264b696110?q=80&w=1920&auto=format&fit=crop" alt="London Street" id="dynDreamImage">
+            <img src="https://images.unsplash.com/photo-1529369623266-f5264b696110?q=80&w=1920&auto=format&fit=crop" alt="Dream scene 3" id="dreamImage3">
             <div class="dream-text">Just for you.</div>
+        </div>
+        <div class="dream-scene scene-4" id="scene4">
+            <img src="london.png" alt="Dream scene 4" id="dreamImage4">
+            <div class="dream-text">Adventure awaits.</div>
         </div>
     </div>
 

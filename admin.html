@@ -4,92 +4,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Magnif Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
+    <div class="background-glow"></div>
 
-    <h2>Admin Panel</h2>
+    <main class="admin-shell">
+        <section class="admin-panel" aria-labelledby="adminTitle">
+            <header class="admin-header">
+                <div>
+                    <p class="eyebrow">MAGNIF FIRST</p>
+                    <h1 id="adminTitle">Boarding Pass Admin</h1>
+                </div>
+                <button class="preview-link" id="previewBtn" type="button">Preview</button>
+            </header>
 
-    <input id="adminName" placeholder="Name"><br><br>
-    <input id="adminDest" placeholder="Destination"><br><br>
-    <input id="adminDate" placeholder="Date"><br><br>
-    <input id="adminDuration" placeholder="Duration"><br><br>
-    <input id="adminTravelers" placeholder="Travelers"><br><br>
+            <form class="admin-form" id="adminForm">
+                <div class="field">
+                    <label for="adminName">Passenger name</label>
+                    <input id="adminName" name="name" placeholder="Jijisha" autocomplete="name">
+                </div>
 
-    <textarea id="adminMessage" placeholder="Message"></textarea><br><br>
+                <div class="field">
+                    <label for="adminDest">Destination</label>
+                    <input id="adminDest" name="destination" placeholder="London, UK">
+                </div>
 
-    <input type="file" id="adminImgFile">
-    <button id="uploadBtn">Upload</button>
-    <p id="uploadStatus"></p>
+                <div class="field">
+                    <label for="adminDate">Travel date</label>
+                    <input id="adminDate" name="date" placeholder="25 June 2026">
+                </div>
 
-    <input id="adminImg" placeholder="Image URL"><br><br>
+                <div class="field">
+                    <label for="adminDuration">Duration</label>
+                    <input id="adminDuration" name="duration" placeholder="5 Days / 4 Nights">
+                </div>
 
-    <button id="generateBtn">Generate Link</button>
+                <div class="field">
+                    <label for="adminTravelers">Travelers</label>
+                    <input id="adminTravelers" name="travelers" placeholder="2 People">
+                </div>
 
-    <div id="resultBox" style="display:none;">
-        <textarea id="resultUrl"></textarea>
-        <button id="copyBtn">Copy</button>
-    </div>
+                <div class="field">
+                    <label for="mainImageFile">Reveal image</label>
+                    <label class="file-picker compact" for="mainImageFile">
+                        <span class="file-name" id="mainImageName">No image selected</span>
+                    </label>
+                    <input class="media-input" type="file" id="mainImageFile" accept="image/*">
+                </div>
+
+                <div class="field full">
+                    <label for="adminMessage">Invitation message</label>
+                    <textarea id="adminMessage" name="message" rows="6" placeholder="Dear Jijisha,&#10;&#10;This is not just a trip..."></textarea>
+                </div>
+
+                <section class="media-section full" aria-labelledby="musicTitle">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow small">Soundtrack</p>
+                            <h2 id="musicTitle">Music for the reveal</h2>
+                        </div>
+                    </div>
+                    <label class="file-picker" for="musicFile">
+                        <span class="file-title">Choose music</span>
+                        <span class="file-name" id="musicName">No audio selected</span>
+                    </label>
+                    <input class="media-input" type="file" id="musicFile" accept="audio/*">
+                </section>
+
+                <section class="media-section full" aria-labelledby="sceneTitle">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow small">Transition</p>
+                            <h2 id="sceneTitle">Four rotating dream images</h2>
+                        </div>
+                    </div>
+
+                    <div class="scene-grid">
+                        <div class="scene-upload">
+                            <label for="scene1File">Scene 1</label>
+                            <label class="file-picker compact" for="scene1File">
+                                <span class="file-name" id="scene1Name">Default image</span>
+                            </label>
+                            <input class="media-input" type="file" id="scene1File" accept="image/*">
+                        </div>
+
+                        <div class="scene-upload">
+                            <label for="scene2File">Scene 2</label>
+                            <label class="file-picker compact" for="scene2File">
+                                <span class="file-name" id="scene2Name">Default image</span>
+                            </label>
+                            <input class="media-input" type="file" id="scene2File" accept="image/*">
+                        </div>
+
+                        <div class="scene-upload">
+                            <label for="scene3File">Scene 3</label>
+                            <label class="file-picker compact" for="scene3File">
+                                <span class="file-name" id="scene3Name">Default image</span>
+                            </label>
+                            <input class="media-input" type="file" id="scene3File" accept="image/*">
+                        </div>
+
+                        <div class="scene-upload">
+                            <label for="scene4File">Scene 4</label>
+                            <label class="file-picker compact" for="scene4File">
+                                <span class="file-name" id="scene4Name">Default image</span>
+                            </label>
+                            <input class="media-input" type="file" id="scene4File" accept="image/*">
+                        </div>
+                    </div>
+                </section>
+
+                <p class="status-text full" id="formStatus" aria-live="polite"></p>
+                <button class="generate-btn full" id="generateBtn" type="submit">Generate Invitation Link</button>
+            </form>
+
+            <section class="result-box hidden" id="resultBox" aria-live="polite">
+                <label for="resultUrl">Generated result link</label>
+                <div class="result-row">
+                    <textarea id="resultUrl" readonly rows="2"></textarea>
+                    <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+                </div>
+            </section>
+        </section>
+    </main>
 
     <script>
-        const IMGBB_API_KEY = "736039f4a67aa41a88a5e6c98662e01d";
+        const adminForm = document.getElementById('adminForm');
+        const previewBtn = document.getElementById('previewBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultBox = document.getElementById('resultBox');
+        const resultUrl = document.getElementById('resultUrl');
+        const copyBtn = document.getElementById('copyBtn');
+        const formStatus = document.getElementById('formStatus');
 
-        const fileInput = document.getElementById('adminImgFile');
-        const uploadBtn = document.getElementById('uploadBtn');
-        const imgUrlInput = document.getElementById('adminImg');
-        const uploadStatus = document.getElementById('uploadStatus');
+        const fileFields = [
+            { input: 'mainImageFile', label: 'mainImageName', key: 'img' },
+            { input: 'musicFile', label: 'musicName', key: 'music' },
+            { input: 'scene1File', label: 'scene1Name', key: 'scene1' },
+            { input: 'scene2File', label: 'scene2Name', key: 'scene2' },
+            { input: 'scene3File', label: 'scene3Name', key: 'scene3' },
+            { input: 'scene4File', label: 'scene4Name', key: 'scene4' }
+        ];
 
-        uploadBtn.addEventListener('click', async () => {
-            if (!fileInput.files.length) {
-                alert("Select file first");
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("image", fileInput.files[0]);
-
-            const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                method: "POST",
-                body: formData
+        fileFields.forEach((field) => {
+            const input = document.getElementById(field.input);
+            const label = document.getElementById(field.label);
+            input.addEventListener('change', () => {
+                label.textContent = input.files.length ? input.files[0].name : label.dataset.default || label.textContent;
+                formStatus.textContent = '';
             });
-
-            const data = await res.json();
-            imgUrlInput.value = data.data.url;
-            uploadStatus.innerText = "Uploaded";
         });
 
-        document.getElementById('generateBtn').addEventListener('click', async () => {
+        function readFileAsDataUrl(input) {
+            return new Promise((resolve, reject) => {
+                if (!input.files.length) {
+                    resolve('');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error(`Could not read ${input.files[0].name}`));
+                reader.readAsDataURL(input.files[0]);
+            });
+        }
+
+        async function buildPayload() {
+            formStatus.textContent = 'Preparing uploaded media...';
 
             const payload = {
-                name: document.getElementById('adminName').value,
-                dest: document.getElementById('adminDest').value,
-                date: document.getElementById('adminDate').value,
-                duration: document.getElementById('adminDuration').value,
-                travelers: document.getElementById('adminTravelers').value,
-                msg: document.getElementById('adminMessage').value,
-                img: document.getElementById('adminImg').value
+                name: document.getElementById('adminName').value.trim(),
+                dest: document.getElementById('adminDest').value.trim(),
+                date: document.getElementById('adminDate').value.trim(),
+                duration: document.getElementById('adminDuration').value.trim(),
+                travelers: document.getElementById('adminTravelers').value.trim(),
+                msg: document.getElementById('adminMessage').value.trim()
             };
 
-            const res = await fetch('/api/passes', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+            for (const field of fileFields) {
+                payload[field.key] = await readFileAsDataUrl(document.getElementById(field.input));
+            }
 
-            const data = await res.json();
+            return payload;
+        }
 
-            const link = `${window.location.origin}/index.html?id=${data.id}`;
+        async function generatePass({ openPreview = false } = {}) {
+            generateBtn.disabled = true;
+            previewBtn.disabled = true;
+            generateBtn.textContent = openPreview ? 'Preparing Preview...' : 'Generating...';
 
-            document.getElementById('resultBox').style.display = "block";
-            document.getElementById('resultUrl').value = link;
+            try {
+                const payload = await buildPayload();
+
+                const res = await fetch('/api/passes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.error || 'Could not generate link');
+                }
+
+                const link = `${window.location.origin}/index.html?id=${data.id}`;
+                resultUrl.value = link;
+                resultBox.classList.remove('hidden');
+                formStatus.textContent = openPreview ? 'Preview generated.' : 'Invitation link generated.';
+
+                if (openPreview) {
+                    window.open(`${link}&autoplay=1`, '_blank', 'noopener');
+                }
+            } catch (error) {
+                resultUrl.value = error.message || 'Could not generate link.';
+                resultBox.classList.remove('hidden');
+                formStatus.textContent = 'Something went wrong while generating.';
+            } finally {
+                generateBtn.disabled = false;
+                previewBtn.disabled = false;
+                generateBtn.textContent = 'Generate Invitation Link';
+            }
+        }
+
+        adminForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            generatePass();
         });
 
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            navigator.clipboard.writeText(document.getElementById('resultUrl').value);
+        previewBtn.addEventListener('click', () => {
+            generatePass({ openPreview: true });
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            await navigator.clipboard.writeText(resultUrl.value);
+            copyBtn.textContent = 'Copied';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 1200);
         });
     </script>
-
 </body>
 
 </html>
